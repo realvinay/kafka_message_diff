@@ -69,7 +69,6 @@ def listen_to_kafka():
     c = Consumer({
         'bootstrap.servers': config['kafka-read']['bootstrap-servers'],
         'group.id': config['kafka-read']['group-id'],
-        'auto.offset.reset': config['kafka-read']['offset']
     })
 
     c.subscribe([config['kafka-read']['topic']])
