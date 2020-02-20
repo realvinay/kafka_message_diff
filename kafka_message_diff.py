@@ -122,12 +122,11 @@ def push_message_diff(new_message):
         push_message = build_push_message(new_message, diff_message_dict)
         kafka_publish(push_message, config['kafka-write']['topic'])
 
-    log.debug(diff_message)
     cur.close()
 
 
 def kafka_publish(message, topic):
-    log.debug("Sending message" + message)
+    log.info("Sending message" + message)
     p = Producer({'bootstrap.servers': config['kafka-write']['bootstrap-servers']})
     p.poll(0)
 
@@ -140,9 +139,9 @@ def delivery_report(err, msg):
     """ Called once for each message produced to indicate delivery result.
         Triggered by poll() or flush(). """
     if err is not None:
-        print('Message delivery failed: {}'.format(err))
+        log.error('Message delivery failed: {}'.format(err))
     else:
-        print('Message delivered to {} [{}]'.format(
+        log.debug('Message delivered to {} [{}]'.format(
             msg.topic(), msg.partition()))
 
 def build_push_message(message,diff=None):
