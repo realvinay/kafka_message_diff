@@ -1,0 +1,3 @@
+jsondiff
+psycopg2
+confluent_kafka
