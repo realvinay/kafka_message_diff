@@ -26,7 +26,7 @@ def process_message(msg_text):
     """
     Process the message, insert
     """
-    log.info('Received message: {}'.format(msg_text))
+    log.debug('Received message: {}'.format(msg_text))
     cur = conn.cursor()
 
     try:
@@ -152,7 +152,7 @@ def build_push_message(message,diff=None):
         push_message['data'] = diff
     else:
         push_message['status'] = "created"
-        push_message['data'] = message
+        push_message['data'] = {"inserted" : message}
     
     return json.dumps(push_message)
 
