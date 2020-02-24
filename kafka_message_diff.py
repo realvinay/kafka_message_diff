@@ -149,10 +149,14 @@ def build_push_message(message,diff=None):
     push_message = { MESSAGE_KEY : message[MESSAGE_KEY] }
     if diff:
         push_message['status'] = "updated"
-        push_message['data'] = diff
+        push_message['diff'] = diff
     else:
         push_message['status'] = "created"
-        push_message['data'] = {"inserted" : message}
+        push_message['diff'] = {"inserted" : message }
+    
+    
+    if config['app'].getboolean('send_original_data') is True:
+        push_message['data'] = message
     
     return json.dumps(push_message)
 
